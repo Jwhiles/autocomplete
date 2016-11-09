@@ -1,0 +1,26 @@
+{
+  "name": "backend-badgers-autocomplete",
+  "version": "1.0.0",
+  "description": "An autocomplete program made to learn about node.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FAC9/backend-badgers-autocomplete.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FAC9/backend-badgers-autocomplete/issues"
+  },
+  "homepage": "https://github.com/FAC9/backend-badgers-autocomplete#readme",
+  "devDependencies": {
+    "eslint": "^3.9.1",
+    "tape": "^4.6.2"
+  }
+}
