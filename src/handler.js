@@ -18,3 +18,10 @@ handler.notFound = function (request, response) {
   response.writeHead(404, {'Content-type': 'text/html'});
   response.end('<h1>Resource not found</h1>');
 };
+
+handler.en = function (request, response) {
+  let searchString = request.url.substring(9);
+  console.log(searchString);
+  response.writeHead(200, {'Content-type': 'text/html'});
+  response.end('<h1>word search!</h1>');
+};
