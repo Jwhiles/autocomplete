@@ -19,6 +19,9 @@ QUnit.test('keyRoutes function', function (t) {
   t.ok(keyRoutes('e') === buildUrl('/dict', 'en', 'apple'), 'should return a valid url');
   inp.value = 'I have an apple';
   t.ok(keyRoutes('e') === buildUrl('/dict', 'en', 'apple'));
+  // test enter
+  // test space
+  // test shift key?
 });
 // test('test that keyRoutes() handles different key presses', function(t) {
 //   //enter
