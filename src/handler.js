@@ -23,8 +23,11 @@ handler.notFound = function (request, response) {
 
 handler.dict = function (request, response) {
   let urlParts = url.parse(request.url, true); // eg dict/en?lang=en&search=hello
-  let lang = urlParts.query.lang;
+  let lang = (urlParts.query.lang || 'en');
   let searchTerm = urlParts.query.search;
+  if (!searchTerm) {
+    return;
+  }
   search.find(searchTerm, lang, function (err, data) {
     if (err) {
       console.log(err);
