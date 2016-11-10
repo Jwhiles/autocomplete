@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node tests/front-end-tests.js && node tests/back-end-tests.js",
+    "test": "node tests/front-end-tests.js | faucet && node tests/back-end-tests.js | faucet",
     "frontendtests": "node tests/front-end-tests.js",
     "backendtests": "node tests/back-end-tests.js"
   },
