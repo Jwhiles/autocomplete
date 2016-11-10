@@ -3,12 +3,12 @@ const handler = require('./handler.js');
 const routes = {
   '404': handler.notFound,
   '/': handler.home,
-  '/dict/en': handler.en
+  '/dict': handler.dict
 };
 
 module.exports = function (request, response) {
-  if (request.url.match('/dict/en')) {
-    routes['/dict/en'](request, response);
+  if (request.url.match('/dict')) {
+    routes['/dict'](request, response);
   } else if (routes[request.url]) {
     routes[request.url](request, response);
   } else {
