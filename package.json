@@ -8,6 +8,8 @@
   },
   "scripts": {
     "test": "node tests/front-end-tests.js && node tests/back-end-tests.js",
+    "coverage": "istanbul cover tests/front-end-tests.js && istanbul cover tests/front-end-tests.js && ./node_modules/.bin/codecov -t 1999f578-04fb-47f4-a07d-c620110a9532",
+    "codecov": "./node_modules/.bin/codecov -t 1999f578-04fb-47f4-a07d-c620110a9532",
     "frontendtests": "node tests/front-end-tests.js",
     "backendtests": "node tests/back-end-tests.js"
   },
@@ -22,6 +24,7 @@
   },
   "homepage": "https://github.com/FAC9/backend-badgers-autocomplete#readme",
   "devDependencies": {
+    "codecov": "^1.0.1",
     "eslint": "^3.9.1",
     "eslint-config-semistandard": "^7.0.0",
     "eslint-config-standard": "^6.2.1",
@@ -29,6 +32,7 @@
     "eslint-plugin-react": "^6.6.0",
     "eslint-plugin-standard": "^2.0.1",
     "faucet": "0.0.1",
+    "istanbul": "^0.4.5",
     "tape": "^4.6.2"
   }
 }
