@@ -1,7 +1,13 @@
 const test = require('tape');
-const server = require('../src/server.js');
+const search = require('../src/search.js');
 
-test('testing our server', function (t) {
-  t.ok(http);
-  t.end();
+test('test loading dictionary', function (t) {
+  search.import(function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    t.ok(data);
+    t.end();
+  });
 });
