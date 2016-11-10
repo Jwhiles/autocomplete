@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node tests/front-end-tests.js | faucet && node tests/back-end-tests.js | faucet",
+    "test": "node tests/front-end-tests.js && node tests/back-end-tests.js",
     "frontendtests": "node tests/front-end-tests.js",
     "backendtests": "node tests/back-end-tests.js"
   },
@@ -28,6 +28,7 @@
     "eslint-plugin-promise": "^3.3.1",
     "eslint-plugin-react": "^6.6.0",
     "eslint-plugin-standard": "^2.0.1",
+    "faucet": "0.0.1",
     "tape": "^4.6.2"
   }
 }
