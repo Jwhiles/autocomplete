@@ -25,7 +25,7 @@ handler.dict = function (request, response) {
   let urlParts = url.parse(request.url, true); // eg dict/en?lang=en&search=hello
   let lang = urlParts.query.lang;
   let searchTerm = urlParts.query.search;
-  search.find(searchTerm, lang, function(err, data){
+  search.find(searchTerm, lang, function (err, data) {
     if (err) {
       console.log(err);
     } else {
@@ -33,5 +33,5 @@ handler.dict = function (request, response) {
       response.writeHead(200, {'Content-type': 'text/json'});
       response.end(data);
     }
-  })
+  });
 };
