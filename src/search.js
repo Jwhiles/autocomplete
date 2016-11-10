@@ -1,43 +1,43 @@
 var fs = require('fs');
 var path = require('path');
-var search = {};
+var search = module.exports = {};
 var file = path.join(__dirname, '/dict.txt');
-console.log(file);
 
 var words = [];
 
-search.import = function (cb) {
-  fs.readFile(file, 'utf8', function (err, data) {
-    words = data.split('\n');
-    cb(err, words);
-  });
+search.import = function (language, cb) {
+  if (language === 'en') {
+    fs.readFile(file, 'utf8', function (err, data) {
+      words = data.split('\n');
+      cb(err, words);
+    });
+  }
 };
 
-search.find = function (searchTerm) {
-  search.import(function (err, data) {
-    console.log(searchTerm);
+search.find = function (searchTerm, language, cb) {
+  if (arguments.length !== 3) {
+    return ('Not Enough Arguments');
+  }
+  search.import(language, function (err, data) {
     if (err) {
-      throw err;
+      cb(err);
     }
     var pattern = new RegExp('^' + searchTerm, 'gi');
-    console.log(pattern);
     var results = [];
-    data.forEach(function (val, indx) {
-      if (pattern.test(val)) {
-        results.push(val);
+
+    for (var i = 0; i < data.length; i++) {
+      var currentMatch = false;
+      if (pattern.test(data[i])) {
+        results.push(data[i]);
+        currentMatch = true;
       }
-    });
-    console.log(results);
+      if (currentMatch === false && results.length) {
+        break;
+      }
+    }
+    var responseObj = {};
+    responseObj.results = data.length >= 50 ? data.slice(0, 50) : data;
+    responseObj.matchCount = results.length;
+    cb(null, JSON.stringify(responseObj));
   });
 };
-
-// search.import(function (err, data) {
-//   if (err) {
-//     throw err;
-//   } else {
-//     console.log('hello', words.length);
-//   }
-// });
-
-search.find('hel');
-module.exports = search;

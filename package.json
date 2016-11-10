@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "frontendtests": "node tests/front-end-tests.js"
+    "frontendtests": "node tests/front-end-tests.js",
+    "backendtests": "node tests/back-end-tests.js"
   },
   "repository": {
     "type": "git",
