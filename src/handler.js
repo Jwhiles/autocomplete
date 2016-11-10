@@ -21,9 +21,9 @@ handler.notFound = function (request, response) {
 };
 
 handler.dict = function (request, response) {
-  let urlParts = url.parse(request.url, true); // eg dict/en?lang=en&search=hello
-  let lang = urlParts.query.lang;
-  let search = urlParts.query.search;
+  var urlParts = url.parse(request.url, true); // eg dict/en?lang=en&search=hello
+  var lang = urlParts.query.lang;
+  var search = urlParts.query.search;
   console.log('lang: ', lang, 'search: ', search);
   response.writeHead(200, {'Content-type': 'text/html'});
   response.end('<h1>word search!</h1>');

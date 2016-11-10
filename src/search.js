@@ -14,12 +14,11 @@ search.import = function (cb) {
   });
 };
 
-/*search.find = function () {
+/* search.find = function () {
 
-};*/
+}; */
 
-
-search.import(function(err, data) {
+search.import(function (err, data) {
   if (err) {
     throw err;
   } else {
