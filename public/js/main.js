@@ -1,10 +1,9 @@
-function good(){
+function good () {
   return true;
 }
 
-
 if (module) {
-module.exports = {
-  good: good
-}
+  module.exports = {
+    good: good
+  };
 }
