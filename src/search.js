@@ -1,16 +1,27 @@
 var fs = require('fs');
 var path = require('path');
 var search = module.exports = {};
-var file = path.join(__dirname, '/dict.txt');
 
 var words = [];
+var languages = {
+  'en': 'english.txt',
+  'fr': 'french.txt',
+  'it': 'italian.txt',
+  'du': 'dutch.txt',
+  'nw': 'norwegian.txt',
+  'sp': 'spanish.txt',
+  'da': 'danish.txt'
+
+};
 
 search.import = function (language, cb) {
-  if (language === 'en') {
-    fs.readFile(file, 'utf8', function (err, data) {
+  if (languages[language]) {
+    fs.readFile(path.join(__dirname, 'dict', languages[language]), 'utf8', function (err, data) {
       words = data.split('\n');
       cb(err, words);
     });
+  } else {
+    cb('Cant find dictionary');
   }
 };
 
@@ -22,12 +33,16 @@ search.find = function (searchTerm, language, cb) {
     if (err) {
       cb(err);
     }
-    var pattern = new RegExp('^' + searchTerm, 'gi');
+    var pattern = new RegExp('^' + searchTerm, 'i');
     var results = [];
+    var firstIndex = false;
 
     for (var i = 0; i < data.length; i++) {
       var currentMatch = false;
       if (pattern.test(data[i])) {
+        if (!firstIndex) {
+          firstIndex = i;
+        }
         results.push(data[i]);
         currentMatch = true;
       }
@@ -36,7 +51,7 @@ search.find = function (searchTerm, language, cb) {
       }
     }
     var responseObj = {};
-    responseObj.results = data.length >= 50 ? data.slice(0, 50) : data;
+    responseObj.results = data.length >= 50 ? results.slice(0, 50) : results;
     responseObj.matchCount = results.length;
     cb(null, JSON.stringify(responseObj));
   });

@@ -22,6 +22,14 @@ handler.notFound = function (request, response) {
 };
 
 handler.dict = function (request, response) {
+<<<<<<< HEAD
+  var urlParts = url.parse(request.url, true); // eg dict/en?lang=en&search=hello
+  var lang = urlParts.query.lang;
+  var search = urlParts.query.search;
+  console.log('lang: ', lang, 'search: ', search);
+  response.writeHead(200, {'Content-type': 'text/html'});
+  response.end('<h1>word search!</h1>');
+=======
   let urlParts = url.parse(request.url, true); // eg dict/en?lang=en&search=hello
   let lang = (urlParts.query.lang || 'en');
   let searchTerm = urlParts.query.search;
@@ -37,4 +45,5 @@ handler.dict = function (request, response) {
       response.end(data);
     }
   });
+>>>>>>> 70ba46bea9e8cabf1d3cd695fd7eb7d577fd6b2a
 };
