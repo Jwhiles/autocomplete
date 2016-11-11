@@ -34,8 +34,27 @@ QUnit.test('keyRoutes function', function (t) {
 
 QUnit.test('test that our JSON handler works', function (t) {
   var example = { 'results': ['bing', 'binge', 'bingey', 'binghi', 'bingle', 'bingo', 'bingy'], 'matchCount': 7 };
+  var emptyExample = { 'results': [], 'matchCount': 0 };
   t.equal(firstWord('bing', example), 'bing', 'Gets the first result');
   t.equal(firstWord('hahaha', example), undefined, 'Should return undefined term if there is no match');
   t.equal(firstWord('binge', example), 'binge', "Gets the first matching result if the first word doesn't match");
   t.equal(firstWord('', example), undefined, 'Should return undefined if no search string is provided');
+  t.equal(firstWord('bing', emptyExample), undefined, 'Should return undefined if results array is empty');
+})
+
+QUnit.test('test that our top results function works', function (t) {
+  var example = { 'results': ['bing', 'binge', 'bingey', 'binghi', 'bingle', 'bingo', 'bingy'], 'matchCount': 7 };
+  var shortExample = { 'results': ['bing', 'binge'], 'matchCount': 2 };
+  var emptyExample = { 'results': [], 'matchCount': 0 };
+  t.deepEqual(getTopResults('bing', example), ['bing', 'binge', 'bingey', 'binghi', 'bingle'], 'returns the top five results as an array');
+
+  t.deepEqual(getTopResults('bing', shortExample), ['bing', 'binge'], 'returns as many results as possible if there are fewer than 5 matches');
+
+  t.deepEqual(getTopResults('bingle', example), ['bingle'], 'returns only matching results');
+
+  t.deepEqual(getTopResults('', example), [], 'returns an empty array if there is no search term');
+
+  t.deepEqual(getTopResults('boo', emptyExample), [], 'returns an empty array if there the array is empty');
+
+
 })
