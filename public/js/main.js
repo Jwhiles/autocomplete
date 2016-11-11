@@ -57,6 +57,7 @@ function buildUrl (endpoint, lang, value) {
 }
 // Takes string, checks last word/chunk, returns it (if it contains bad characters, returns undefined)
 function lastChunk (value) {
+  if (!value) return undefined;
   value = value.toLowerCase().split(' ').pop();
   if ((/^[a-z]([a-z-])*$/ig).test(value) === false) {
     return undefined;
