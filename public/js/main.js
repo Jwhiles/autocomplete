@@ -12,10 +12,22 @@ var searchResults = document.querySelector('.search-results');
 
 inp.addEventListener('keyup', function (event) {
   latestChunk = lastChunk(inp.value);
+  if (!inp.value) {
+    clearAll();
+  } else if (!latestChunk) {
+    clearDisabledInp();
+  }
   keyRoutes(inp.value, event.key);
 });
 
 // // HELPER FUNCTIONS
+// Clear functions
+function clearAll () {
+  disabledInp.value = inp.value = '';
+}
+function clearDisabledInp () {
+  disabledInp.value = '';
+}
 
 // Waterfall function to take series of arync functions
 function waterfall (arg, tasks, cb) {
