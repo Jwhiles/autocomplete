@@ -2,7 +2,7 @@
   "name": "backend-badgers-autocomplete",
   "version": "1.0.0",
   "description": "An autocomplete program made to learn about node.",
-  "main": "index.js",
+  "main": "src/server.js",
   "directories": {
     "test": "tests"
   },
