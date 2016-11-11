@@ -35,9 +35,9 @@ QUnit.test('keyRoutes function', function (t) {
 QUnit.test('test that our firstword getter works', function (t) {
   var example = ['bing', 'binge', 'bingey', 'binghi', 'bingle', 'bingo', 'bingy'];
   var emptyExample = [];
-  t.equal(firstWord('bing', example), 'bing', 'Gets the first result');
+  t.equal(firstWord('bing', example), 'binge', 'Gets the first matching result that is not exactly the same as search term');
   t.equal(firstWord('hahaha', example), undefined, 'Should return undefined term if there is no match');
-  t.equal(firstWord('binge', example), 'binge', "Gets the first matching result if the first word doesn't match");
+  t.equal(firstWord('binge', example), 'bingey', "if the first word doesn't match, Gets the first matching result that is not the same as the search term");
   t.equal(firstWord('', example), undefined, 'Should return undefined if no search string is provided');
   t.equal(firstWord('bing', emptyExample), undefined, 'Should return undefined if results array is empty');
 })
