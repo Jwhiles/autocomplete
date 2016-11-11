@@ -36,10 +36,17 @@ inp.addEventListener('keyup', function (event) {
 });
 
 function keyRoutes (char) {
-  if (char === 'Enter') { return; } else if (char === ' ') {
+  if (char === 'Enter') {
+    // stuff will happen here
+    return;
+  } else if (char === ' ') {
+    // and heres
     return;
   } else {
+    // if value search
     if (lastChunk(inp.value) !== undefined) {
+      // call a function which checks if our locally stored results have data
+      // if they dont, when we do a waterfall method of build url, request json, and do something with json
       var url = buildUrl('/dict', 'en', lastChunk(inp.value));
       return url;
     }
