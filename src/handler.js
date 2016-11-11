@@ -1,3 +1,4 @@
+'use strict';
 const handler = module.exports = {};
 const fs = require('fs');
 const path = require('path');
@@ -42,7 +43,6 @@ handler.dict = function (request, response) {
     if (err) {
       console.log(err);
     } else {
-      console.log(data);
       response.writeHead(200, {'Content-type': 'text/json'});
       response.end(data);
     }
