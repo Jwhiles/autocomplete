@@ -70,9 +70,10 @@ function filterResults (array, chunk) {
 
 // // MAIN KEY ROUTER FUNCTIONS
 
-function onEnter () {
-  // if top result then call function to turn input value into input value + result, then clear everything
+function onAutoComplete () {
+  // if top result in container, then call function to turn input value into input value + result, then clear everything
   // if no results then ignore
+  // this function can also be called from user clicking result
 }
 
 function onSpace () {
@@ -119,7 +120,7 @@ function onLetter (input) {
 // handles routes
 function keyRoutes (inp, char) {
   if (char === 'Enter') {
-    onEnter(inp);
+    onAutoComplete(inp);
   } else if (char === ' ') {
     onSpace(inp);
   } else if (char === 'Backspace') {
