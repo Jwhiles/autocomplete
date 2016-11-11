@@ -106,7 +106,7 @@ function onOddKey () {
 
 function clearSuggestionsContainer () {
   // Assumes search-results container contains ul element
-  searchResults.children[0].innerHTML = '';
+  // searchResults.children[0].innerHTML = '';
 }
 
 function onLetter (input) {
