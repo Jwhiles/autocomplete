@@ -1,3 +1,20 @@
+var globalResults = [];
+var latestCount;
+
+function waterfall (arg, tasks, cb) {
+  var next = tasks[0];
+  var tail = tasks.slice(1);
+  if (typeof next !== 'undefined') {
+    next(arg, function (error, result) {
+      if (error) {
+        cb(error);
+      }
+      waterfall(result, tail, cb);
+    });
+  }
+  cb(null, arg);
+}
+
 // Takes url e.g /dict?lang=en&search=a and callback
 function requestJSON (url, cb) {
   var xhr = new XMLHttpRequest();
@@ -35,11 +52,26 @@ inp.addEventListener('keyup', function (event) {
   keyRoutes(event.key);
 });
 
+function filterResults (array, chunk) {
+  array = array.filter(function (item) {
+    var pattern = new RegExp('^' + chunk, 'i');
+    return pattern.test(item);
+  });
+  return array;
+}
+
+function onSpace () {
+  // bin/remove suggestionbox
+}
+
+function checkArray (word) {}
+
 function keyRoutes (char) {
   if (char === 'Enter') {
     // stuff will happen here
     return;
   } else if (char === ' ') {
+    onSpace();
     // and heres
     return;
   } else {
@@ -47,8 +79,20 @@ function keyRoutes (char) {
     if (lastChunk(inp.value) !== undefined) {
       // call a function which checks if our locally stored results have data
       // if they dont, when we do a waterfall method of build url, request json, and do something with json
-      var url = buildUrl('/dict', 'en', lastChunk(inp.value));
-      return url;
+      globalResults = filterResults(globalResults, lastChunk(inp.value));
+      if (globalResults) {
+        // send results to DOM list builder
+        return;
+      } else {
+        var url = buildUrl('/dict', 'en', lastChunk(inp.value));
+        waterfall(url, [requestJSON], function (err, res) {
+          if (err) throw err;
+          else {
+          //  receiveJSON();
+            // function from the others :)
+          }
+        });
+      }
     }
   }
 }
