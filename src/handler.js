@@ -1,3 +1,4 @@
+'use strict';
 const handler = module.exports = {};
 const fs = require('fs');
 const path = require('path');

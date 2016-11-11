@@ -15,9 +15,9 @@ function firstWord (search, data) {
 }
 
 function getTopResults (search, data) {
-  console.log(search, data)
+  console.log(search, data);
   var results = !!search ? data.filter(function (val) {
-    return val.indexOf(search) === 0
+    return val.toLowerCase().indexOf(search.toLowerCase()) === 0;
   }) : [];
   return results.slice(0, 5);
 }
@@ -27,9 +27,17 @@ function updateHiddenInput (autoString) {
 }
 
 function receive (data) {
-  var totalUserInput = inp.value.split(' ');
-  var searchWord = totalUserInput.pop();
-  var firstSearchResult = (firstWord(searchWord, data) || searchWord);
-  var existingInput = totalUserInput.length === 0 ? '' : totalUserInput.join(' ') + ' ';
-  updateHiddenInput(existingInput + firstSearchResult);
+  var totalUserInput = inp.value.split(' '); // gets content of input box
+  var searchWord = totalUserInput.pop(); // gets fin al chunk of input
+  var firstSearchResult = (firstWord(searchWord, data) || searchWord); // gets top match
+
+  var charsToAdd = firstSearchResult.substr(searchWord.length) || '';
+
+  // var existingInput = totalUserInput.length === 0 ? '' : totalUserInput.join(' ') + ' ';
+  // var newWords = (existingInput + firstSearchResult).split('');
+  // var oldWords = inp.value.split('');
+  // newWords.forEach(function (val, indx) {
+  //   if (oldWords[indx]) { newWords[indx] = oldWords[indx]; }
+  // });
+  updateHiddenInput(inp.value + charsToAdd);
 }
