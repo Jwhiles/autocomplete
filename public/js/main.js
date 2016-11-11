@@ -1,6 +1,22 @@
-var globalResults = [];
-var latestCount;
+// // GLOBALS
 
+var globalData = {};
+// Holds latestChunk word chunk, e.g. for 'the cat in the ha', latestChunk = 'ha'
+var latestChunk;
+
+var inp = document.querySelector('.main');
+var searchResults = document.querySelector('.search-results');
+
+// // DOM Manipulation
+
+inp.addEventListener('keyup', function (event) {
+  latestChunk = lastChunk(inp.value);
+  keyRoutes(inp.value, event.key);
+});
+
+// // HELPER FUNCTIONS
+
+// Waterfall function to take series of arync functions
 function waterfall (arg, tasks, cb) {
   var next = tasks[0];
   var tail = tasks.slice(1);
@@ -15,7 +31,7 @@ function waterfall (arg, tasks, cb) {
   cb(null, arg);
 }
 
-// Takes url e.g /dict?lang=en&search=a and callback
+// Takes url e.g /dict?lang=en&search=a and a callback (can be used in waterfall)
 function requestJSON (url, cb) {
   var xhr = new XMLHttpRequest();
   xhr.addEventListener('load', function (response) {
@@ -28,14 +44,14 @@ function requestJSON (url, cb) {
   xhr.responseType = 'json';
   xhr.send();
 }
-
+// Builds url to give to server
 function buildUrl (endpoint, lang, value) {
   if (arguments.length !== 3) {
     return undefined;
   }
   return endpoint + '?lang=' + lang + '&search=' + value;
 }
-
+// Takes string, checks last word/chunk, returns it (if it contains bad characters, returns undefined)
 function lastChunk (value) {
   value = value.toLowerCase().split(' ').pop();
   if ((/^[a-z]([a-z-])*$/ig).test(value) === false) {
@@ -43,15 +59,7 @@ function lastChunk (value) {
   }
   return value;
 }
-
-var inp = document.querySelector('input');
-
-inp.addEventListener('keyup', function (event) {
-  lastChunk(inp.value);
-  document.getElementsByClassName('test')[0].innerHTML = lastChunk(inp.value);
-  keyRoutes(event.key);
-});
-
+// Filters array based on start of chunk
 function filterResults (array, chunk) {
   array = array.filter(function (item) {
     var pattern = new RegExp('^' + chunk, 'i');
@@ -60,39 +68,73 @@ function filterResults (array, chunk) {
   return array;
 }
 
-function onSpace () {
-  // bin/remove suggestionbox
+// // MAIN KEY ROUTER FUNCTIONS
+
+function onAutoComplete () {
+  // if top result in container, then call function to turn input value into input value + result, then clear everything
+  // if no results then ignore
+  // this function can also be called from user clicking result
 }
 
-function checkArray (word) {}
+function onSpace () {
+  clearSuggestionsContainer();
+}
 
-function keyRoutes (char) {
-  if (char === 'Enter') {
-    // stuff will happen here
-    return;
-  } else if (char === ' ') {
-    onSpace();
-    // and heres
-    return;
-  } else {
-    // if value search
-    if (lastChunk(inp.value) !== undefined) {
-      // call a function which checks if our locally stored results have data
-      // if they dont, when we do a waterfall method of build url, request json, and do something with json
-      globalResults = filterResults(globalResults, lastChunk(inp.value));
-      if (globalResults) {
-        // send results to DOM list builder
-        return;
-      } else {
-        var url = buildUrl('/dict', 'en', lastChunk(inp.value));
-        waterfall(url, [requestJSON], function (err, res) {
-          if (err) throw err;
-          else {
-          //  receiveJSON();
-            // function from the others :)
-          }
-        });
-      }
+function onBackSpace () {
+  onLetter(latestChunk);
+}
+
+function onOddKey () {
+  clearSuggestionsContainer();
+}
+
+function clearSuggestionsContainer () {
+  // Assumes search-results container contains ul element
+  searchResults.children[0].innerHTML = '';
+}
+
+function onLetter (input) {
+  if (lastChunk(input) !== undefined) {
+    // If users stored results contains results from their new word chunk, then send new filtered array...
+    var newFilteredArray = filterResults(globalData.results, lastChunk(input));
+    if (newFilteredArray.length) {
+      // to receive function in json-handler.js
+      receive(newFilteredArray);
+    } else {
+      // If no results, then send request to server for data
+      var url = buildUrl('/dict', 'en', lastChunk(input));
+      waterfall(url, [requestJSON], function (err, json) {
+        if (err) throw err;
+        else {
+          // Store server data, to receive function in json-handler.js
+          handleJSON(json);
+          receive(globalData.results);
+        }
+      });
     }
+  } else {
+    clearSuggestionsContainer();
   }
+}
+
+// handles routes
+function keyRoutes (inp, char) {
+  if (char === 'Enter') {
+    onAutoComplete(inp);
+  } else if (char === ' ') {
+    onSpace(inp);
+  } else if (char === 'Backspace') {
+    onBackSpace(inp);
+  } else if (lastChunk(inp) !== undefined) {
+    onLetter(inp);
+  } else {
+    onOddKey(inp);
+  }
+}
+
+// handleJSON
+function handleJSON (json) {
+  var newData = JSON.parse(json);
+  globalData.results = newData.results;
+  globalData.matchCount = newData.matchCount;
 }
