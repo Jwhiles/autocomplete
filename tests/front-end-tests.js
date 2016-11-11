@@ -31,3 +31,11 @@ QUnit.test('keyRoutes function', function (t) {
 //   //other
 //   t.ok()
 // })
+
+QUnit.test('test that our JSON handler works', function (t) {
+  var example = { 'results': ['bing', 'binge', 'bingey', 'binghi', 'bingle', 'bingo', 'bingy'], 'matchCount': 7 };
+  t.equal(firstWord('bing', example), 'bing', 'Gets the first result');
+  t.equal(firstWord('hahaha', example), undefined, 'Should return undefined term if there is no match');
+  t.equal(firstWord('binge', example), 'binge', "Gets the first matching result if the first word doesn't match");
+  t.equal(firstWord('', example), undefined, 'Should return undefined if no search string is provided');
+})
