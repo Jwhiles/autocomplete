@@ -15,6 +15,7 @@ function firstWord (search, data) {
 }
 
 function getTopResults (search, data) {
+  console.log(search, data)
   var results = !!search ? data.filter(function (val) {
     return val.indexOf(search) === 0
   }) : [];

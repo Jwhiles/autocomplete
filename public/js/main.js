@@ -11,6 +11,8 @@ var searchResults = document.querySelector('.search-results');
 
 inp.addEventListener('keyup', function (event) {
   latestChunk = lastChunk(inp.value);
+  console.log(latestChunk);
+  console.log(globalData);
   keyRoutes(inp.value, event.key);
 });
 
@@ -35,7 +37,8 @@ function waterfall (arg, tasks, cb) {
 function requestJSON (url, cb) {
   var xhr = new XMLHttpRequest();
   xhr.addEventListener('load', function (response) {
-    cb(null, response.responseText);
+    // console.log(response.currentTarget.response)
+    cb(null, response.currentTarget.response);
   });
   xhr.addEventListener('error', function (err) {
     cb(err);
@@ -61,6 +64,9 @@ function lastChunk (value) {
 }
 // Filters array based on start of chunk
 function filterResults (array, chunk) {
+  if (!array) {
+    return [];
+  }
   array = array.filter(function (item) {
     var pattern = new RegExp('^' + chunk, 'i');
     return pattern.test(item);
@@ -92,6 +98,7 @@ function onSpace () {
 }
 
 function onBackSpace () {
+  console.log('backspace');
   onLetter(latestChunk);
 }
 
@@ -106,20 +113,26 @@ function clearSuggestionsContainer () {
 
 function onLetter (input) {
   if (lastChunk(input) !== undefined) {
+    console.log('hello');
     // If users stored results contains results from their new word chunk, then send new filtered array...
     var newFilteredArray = filterResults(globalData.results, lastChunk(input));
     if (newFilteredArray.length) {
       // to receive function in json-handler.js
-     //  receive(newFilteredArray);
+      console.log('recieve once')
+      receive(newFilteredArray);
     } else {
       // If no results, then send request to server for data
       var url = buildUrl('/dict', 'en', lastChunk(input));
       waterfall(url, [requestJSON], function (err, json) {
-        if (err) throw err;
+        if (err) {
+          throw err;
+        }
         else {
           // Store server data, to receive function in json-handler.js
           handleJSON(json);
-          // receive(globalData.results);
+          console.log('recieve again');
+
+          receive(globalData.results);
         }
       });
     }
@@ -137,6 +150,7 @@ function keyRoutes (inp, char) {
   } else if (char === 'Backspace') {
     onBackSpace(inp);
   } else if (lastChunk(inp) !== undefined) {
+    console.log(inp, 'letter!')
     onLetter(inp);
   } else {
     onOddKey(inp);
@@ -145,7 +159,7 @@ function keyRoutes (inp, char) {
 
 // handleJSON
 function handleJSON (json) {
-  var newData = JSON.parse(json);
+  var newData = json;
   globalData.results = newData.results;
   globalData.matchCount = newData.matchCount;
 }
