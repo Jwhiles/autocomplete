@@ -1,3 +1,17 @@
+// Takes url e.g /dict?lang=en&search=a and callback
+function requestJSON (url, cb) {
+  var xhr = new XMLHttpRequest();
+  xhr.addEventListener('load', function (response) {
+    cb(null, response.responseText);
+  });
+  xhr.addEventListener('error', function (err) {
+    cb(err);
+  });
+  xhr.open('GET', url, true);
+  xhr.responseType = 'json';
+  xhr.send();
+}
+
 function buildUrl (endpoint, lang, value) {
   if (arguments.length !== 3) {
     return undefined;
