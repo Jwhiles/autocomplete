@@ -5,13 +5,15 @@ function firstWord (search, data) {
   if (results.length > 1 && results[0] === search) {
     return results[1];
   }
+  console.log(results[0]);
   return results[0];
 }
 
 function getTopResults (search, data) {
   var results = !!search ? data.filter(function (val) {
-    return val.toLowerCase().indexOf(search.toLowerCase()) === 0;
+    return (val.toLowerCase().indexOf(search.toLowerCase()) === 0 && val.toLocaleLowerCase() !== search.toLocaleLowerCase());
   }) : [];
+  console.log(results);
   return results.slice(0, 5);
 }
 
