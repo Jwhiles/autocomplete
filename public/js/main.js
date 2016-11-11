@@ -83,7 +83,7 @@ function filterResults (array, chunk) {
   }
   array = array.filter(function (item) {
     var pattern = new RegExp('^' + chunk, 'i');
-    return pattern.test(item);
+    return (pattern.test(item) && item.length > 1);
   });
   return array;
 }
