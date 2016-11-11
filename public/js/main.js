@@ -1,9 +1,11 @@
 // // GLOBALS
 
 var globalData = {};
+// Holds latestChunk word chunk, e.g. for 'the cat in the ha', latestChunk = 'ha'
 var latestChunk;
 
-var inp = document.querySelector('input');
+var inp = document.querySelector('.main');
+var searchResults = document.querySelector('.search-results');
 
 // // DOM Manipulation
 
@@ -85,27 +87,32 @@ function onOddKey () {
   clearSuggestionsContainer();
 }
 
-function clearSuggestionsContainer(){
-  // clear inner suggestions container
+function clearSuggestionsContainer () {
+  // Assumes search-results container contains ul element
+  searchResults.children[0].innerHTML = '';
 }
 
 function onLetter (input) {
   if (lastChunk(input) !== undefined) {
-    var newFilteredArray = filterResults(globalData.results, lastChunk(input);
+    // If users stored results contains results from their new word chunk, then send new filtered array...
+    var newFilteredArray = filterResults(globalData.results, lastChunk(input));
     if (newFilteredArray.length) {
-      // send john and emily newFilteredArray
+      // to receive function in json-handler.js
+      receive(newFilteredArray);
     } else {
+      // If no results, then send request to server for data
       var url = buildUrl('/dict', 'en', lastChunk(input));
       waterfall(url, [requestJSON], function (err, json) {
         if (err) throw err;
         else {
+          // Store server data, to receive function in json-handler.js
           handleJSON(json);
-          // send John and emily globalData.results;
+          receive(globalData.results);
         }
       });
     }
   } else {
-    // clear suggestions container
+    clearSuggestionsContainer();
   }
 }
 
@@ -124,9 +131,8 @@ function keyRoutes (inp, char) {
   }
 }
 
-
 // handleJSON
-function handleJSON(json){
+function handleJSON (json) {
   var newData = JSON.parse(json);
   globalData.results = newData.results;
   globalData.matchCount = newData.matchCount;
