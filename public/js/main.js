@@ -70,10 +70,21 @@ function filterResults (array, chunk) {
 
 // // MAIN KEY ROUTER FUNCTIONS
 
-function onAutoComplete () {
-  // if top result in container, then call function to turn input value into input value + result, then clear everything
-  // if no results then ignore
-  // this function can also be called from user clicking result
+function onEnter (input) {
+  var selectedValue = document.querySelector('.jsauto').value;
+  if (selectedValue !== input) {
+    inp.value = selectedValue;
+  } else {
+    inp.value = '';
+  }
+  // onAutoComplete
+}
+
+function onSelect (value) {
+  var text = inp.value.split(' ');
+  text.pop();
+  text.push(value);
+  inp.value = text.join(' ');
 }
 
 function onSpace () {
@@ -99,7 +110,7 @@ function onLetter (input) {
     var newFilteredArray = filterResults(globalData.results, lastChunk(input));
     if (newFilteredArray.length) {
       // to receive function in json-handler.js
-      receive(newFilteredArray);
+     //  receive(newFilteredArray);
     } else {
       // If no results, then send request to server for data
       var url = buildUrl('/dict', 'en', lastChunk(input));
@@ -108,7 +119,7 @@ function onLetter (input) {
         else {
           // Store server data, to receive function in json-handler.js
           handleJSON(json);
-          receive(globalData.results);
+          // receive(globalData.results);
         }
       });
     }
@@ -120,7 +131,7 @@ function onLetter (input) {
 // handles routes
 function keyRoutes (inp, char) {
   if (char === 'Enter') {
-    onAutoComplete(inp);
+    onEnter(inp);
   } else if (char === ' ') {
     onSpace(inp);
   } else if (char === 'Backspace') {
