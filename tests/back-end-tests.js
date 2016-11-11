@@ -5,25 +5,22 @@ test('Testing Search', function (t) {
   // Testing Search can import dictionary
   search.import('en', function (err, data) {
     if (err) {
-      console.log(err);
-      return;
+      throw err;
     }
     t.ok(data.length > 1000, 'It can import a big file');
   });
   // Can handle /dict?lang=en&search=ang
   search.find('bing', 'en', function (err, data) {
     if (err) {
-      console.log(err);
+      throw err;
     } else {
-      console.log(data);
-
       t.ok(JSON.parse(data), 'It will return JSON results when given correctly formatted url');
     }
   });
   // Can handle /dict?lang=fr&search=très
   search.find('tre', 'fr', function (err, data) {
     if (err) {
-      console.log(err);
+      throw err;
     } else {
       t.ok(JSON.parse(data), 'It can handle different languages');
     }

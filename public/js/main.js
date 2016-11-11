@@ -5,14 +5,13 @@ var globalData = {};
 var latestChunk;
 
 var inp = document.querySelector('.main');
+var disabledInp = document.querySelector('.jsauto');
 var searchResults = document.querySelector('.search-results');
 
 // // DOM Manipulation
 
 inp.addEventListener('keyup', function (event) {
   latestChunk = lastChunk(inp.value);
-  console.log(latestChunk);
-  console.log(globalData);
   keyRoutes(inp.value, event.key);
 });
 
@@ -26,11 +25,13 @@ function waterfall (arg, tasks, cb) {
     next(arg, function (error, result) {
       if (error) {
         cb(error);
+      } else {
+        waterfall(result, tail, cb);
       }
-      waterfall(result, tail, cb);
     });
+  } else {
+    cb(null, arg);
   }
-  cb(null, arg);
 }
 
 // Takes url e.g /dict?lang=en&search=a and a callback (can be used in waterfall)
@@ -56,6 +57,7 @@ function buildUrl (endpoint, lang, value) {
 }
 // Takes string, checks last word/chunk, returns it (if it contains bad characters, returns undefined)
 function lastChunk (value) {
+  if (!value) return undefined;
   value = value.toLowerCase().split(' ').pop();
   if ((/^[a-z]([a-z-])*$/ig).test(value) === false) {
     return undefined;
@@ -77,13 +79,11 @@ function filterResults (array, chunk) {
 // // MAIN KEY ROUTER FUNCTIONS
 
 function onEnter (input) {
-  var selectedValue = document.querySelector('.jsauto').value;
-  if (selectedValue !== input) {
-    inp.value = selectedValue;
+  if (disabledInp.value !== input) {
+    inp.value = disabledInp.value;
   } else {
     inp.value = '';
   }
-  // onAutoComplete
 }
 
 function onSelect (value) {
@@ -98,7 +98,6 @@ function onSpace () {
 }
 
 function onBackSpace () {
-  console.log('backspace');
   onLetter(latestChunk);
 }
 
@@ -108,17 +107,15 @@ function onOddKey () {
 
 function clearSuggestionsContainer () {
   // Assumes search-results container contains ul element
-  searchResults.children[0].innerHTML = '';
+  // searchResults.children[0].innerHTML = '';
 }
 
 function onLetter (input) {
   if (lastChunk(input) !== undefined) {
-    console.log('hello');
     // If users stored results contains results from their new word chunk, then send new filtered array...
     var newFilteredArray = filterResults(globalData.results, lastChunk(input));
     if (newFilteredArray.length) {
       // to receive function in json-handler.js
-      console.log('recieve once')
       receive(newFilteredArray);
     } else {
       // If no results, then send request to server for data
@@ -126,12 +123,8 @@ function onLetter (input) {
       waterfall(url, [requestJSON], function (err, json) {
         if (err) {
           throw err;
-        }
-        else {
-          // Store server data, to receive function in json-handler.js
+        } else {
           handleJSON(json);
-          console.log('recieve again');
-
           receive(globalData.results);
         }
       });
@@ -150,7 +143,6 @@ function keyRoutes (inp, char) {
   } else if (char === 'Backspace') {
     onBackSpace(inp);
   } else if (lastChunk(inp) !== undefined) {
-    console.log(inp, 'letter!')
     onLetter(inp);
   } else {
     onOddKey(inp);
