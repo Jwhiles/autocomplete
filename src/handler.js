@@ -16,6 +16,16 @@ handler.home = function (request, response) {
   });
 };
 
+// File requests
+handler.files = function (request, response, url) {
+  fs.readFile(path.join(__dirname, '../public', url), 'utf8', function (err, file) {
+    if (err) throw err;
+    var ext = path.extname(url).slice(1);
+    response.writeHead(200, {'content-type': 'text/' + ext});
+    response.end(file);
+  });
+};
+
 handler.notFound = function (request, response) {
   response.writeHead(404, {'Content-type': 'text/html'});
   response.end('<h1>Resource not found</h1>');
