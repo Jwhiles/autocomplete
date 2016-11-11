@@ -15,6 +15,8 @@ test('Testing Search', function (t) {
     if (err) {
       console.log(err);
     } else {
+      console.log(data);
+
       t.ok(JSON.parse(data), 'It will return JSON results when given correctly formatted url');
     }
   });
@@ -23,7 +25,6 @@ test('Testing Search', function (t) {
     if (err) {
       console.log(err);
     } else {
-      console.log(data);
       t.ok(JSON.parse(data), 'It can handle different languages');
     }
   });
