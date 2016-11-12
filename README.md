@@ -1,45 +1,47 @@
 # backend-badgers-autocomplete
 
-## Objectives 
+## Objectives
 
-An autocomplete program made to learn about node. 
-- frontend and backend testing (Tape, QUnit)
-- follow the modular approach
+- Build an autocomplete test program.
+- Explore Node tools for deploying a server.
+- Explore Front and Back-end testing (via Tape and QUnit).
+- Use a code coverage tool.
+- Use of modules.
 
-## Model
+## The Client/Server workload problem...
 
-### On start: When user types letter in search field;
-- Makes a request to server, to retrieve array of words starting with that letter
-- Server responds with JSON file, containing results with up to 50 matches, and number of results
-- Client stores results in variable which holds array, and number of server matches in array
-- Client displays top 10 words (in random order) (and server matches)
-- User can click word in list or press enter...
+![Illustration](public/images/client-server.png)
 
-### On next letter type:
-- On new query, check our results in matches are present, if they are, filter the list...
-- If no results, send new request for new JSON list.
-- If results from server, follow the same steps in step 1.
-- If no results, user simply carries on typing letters.
+## Logic
 
-### On typing enter (or selecting word) when results are present:
-- If they have caps lock on (will add top result to search field in CAPS, and add space)
-- Else if word is at start of sentence (will add top result to search in sentence-case, and add space)
-- Else will add top result to search field, and add space.
+### 1. When the user types a letter in search field...
+- A request is made to the server, to retrieve an array of results based on that letter/word chunk.
+- Server scans a txt file, and responds with a JSON file containing up to 50 matches (and total number of results).
+- Client stores results in a local variable.
+- Client displays top 5 words in a list.
+- Ghost text appears in input field with top result.
 
-### On space
-- Simply create space, clear all results and local array. 
+### 2. After server response, when user types another letter:
+- First, local results are checked for matches. If they are, the displayed list is updated.
+- If there are no results, repeat steps 1 for server request.
 
-### On new word
-- Same steps as previously, but checking on latest word chunk only.
+### 3. On typing enter (or selecting word from list) when results are present:
+- List is cleared, input field updates with top/selected word, and user can begin typing their new word. Step 1 repeats.
+- Note: if selected word is at start of sentence, the word appears in sentence-case.
+- Note: if user has caps lock enabled, their list will be capitalised, and the word will autocomplete in uppercase.
+
+### 4. On hitting the space bar:
+- The resulted list is cleared, and a space is simply made. Step 1 repeats.
+
+### 5. On typing enter when no results are present:
+- Entire search field clears.
 
 
 
 ## Stretch goals
 
 - Heroku
-- multiple languages (multiple text files)
-- module.exports and require
+- Multiple Language support (multiple text files)
+- Use module.exports and require
 - Testing endpoints
-
-### Wednesday
-- initial research
+- Use of Travis
