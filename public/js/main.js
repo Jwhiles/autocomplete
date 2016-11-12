@@ -20,6 +20,25 @@ inp.addEventListener('keyup', function (event) {
   keyRoutes(inp.value, event.key);
 });
 
+function addClassOnHover (container, className) {
+
+  function removeClasses () {
+    [].forEach.call(container.children, function (child) {
+      child.classList.remove(className);
+    });
+  }
+  container.addEventListener('mouseover', function (event) {
+    removeClasses();
+    event.target.classList.add(className);
+  });
+  container.addEventListener('mouseleave', function () {
+    removeClasses();
+    container.children[0].classList.add(className);
+  });
+}
+
+addClassOnHover(document.querySelector('ul'), 'selected');
+
 // // HELPER FUNCTIONS
 // Clear functions
 function clearAll () {
