@@ -1,12 +1,14 @@
 # backend-badgers-autocomplete
 
-## Objectives 
+## Objectives
 
-An autocomplete program made to learn about node. 
+An autocomplete program made to learn about node.
 - frontend and backend testing (Tape, QUnit)
 - follow the modular approach
 
-## Model
+## The Client/Server workload problem...
+
+![Illustration](public/images/client-server.png)
 
 ### On start: When user types letter in search field;
 - Makes a request to server, to retrieve array of words starting with that letter
@@ -14,6 +16,8 @@ An autocomplete program made to learn about node.
 - Client stores results in variable which holds array, and number of server matches in array
 - Client displays top 10 words (in random order) (and server matches)
 - User can click word in list or press enter...
+
+## Model
 
 ### On next letter type:
 - On new query, check our results in matches are present, if they are, filter the list...
@@ -27,7 +31,7 @@ An autocomplete program made to learn about node.
 - Else will add top result to search field, and add space.
 
 ### On space
-- Simply create space, clear all results and local array. 
+- Simply create space, clear all results and local array.
 
 ### On new word
 - Same steps as previously, but checking on latest word chunk only.
