@@ -13,7 +13,9 @@ function showSelectBox (arr) {
   var listItems = document.querySelectorAll('.suggestion');
   listItems.forEach(function (item, index) {
     item.innerHTML = (arr[index] || '');
+    item.classList.remove('selected');
   });
+  listItems[0].classList.add('selected');
   if (listItems[0].innerHTML) searchResults.style.display = 'inherit';
   else searchResults.style.display = 'none';
 }
