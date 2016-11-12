@@ -20,7 +20,10 @@ inp.addEventListener('keyup', function (event) {
   keyRoutes(inp.value, event.key);
 });
 
+/* Takes container(ul) and classname(selected), adds classname on hover for each,
+  when hovered out of container the first element holds the classname */
 function addClassOnHover (container, className) {
+  if (!container.children) return;
 
   function removeClasses () {
     [].forEach.call(container.children, function (child) {
@@ -38,6 +41,24 @@ function addClassOnHover (container, className) {
 }
 
 addClassOnHover(document.querySelector('ul'), 'selected');
+
+// Allows arrow keys to cycle through classes dpeneding on direction
+function shiftClass (container, className, direction) {
+  if (!container.children) return;
+
+  var initialElt = document.querySelector('.' + className);
+
+  var previous = initialElt.previousElementSibling;
+  var next = initialElt.nextElementSibling;
+
+  if (direction === 'up' && previous) {
+    initialElt.classList.remove(className);
+    previous.classList.add(className);
+  } else if (direction === 'down' && next) {
+    initialElt.classList.remove(className);
+    next.classList.add(className);
+  }
+}
 
 // // HELPER FUNCTIONS
 // Clear functions
@@ -136,6 +157,14 @@ function onOddKey () {
   clearSuggestionsContainer();
 }
 
+function onUpKey () {
+  shiftClass(searchResults, 'selected', 'up');
+}
+
+function onDownKey () {
+  shiftClass(searchResults, 'selected', 'down');
+}
+
 function clearSuggestionsContainer () {
   // Assumes search-results container contains ul element
   // searchResults.children[0].innerHTML = '';
@@ -173,6 +202,10 @@ function keyRoutes (inp, char) {
     // onSpace(inp);
   } else if (char === 'Backspace') {
     // onBackSpace(inp);
+  } else if (char === 'ArrowUp') {
+    onUpKey();
+  } else if (char === 'ArrowDown') {
+    onDownKey();
   } else if (lastChunk(inp) !== undefined) {
     // onLetter(inp);
   } else {
