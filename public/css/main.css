@@ -1,30 +1,26 @@
 body {
-  background-color: #ddd;
+  background-color: #eee;
 }
 
+.main-container {
+  width: 600px;
+  margin-top: -10px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .search-contain {
   margin-top: 100px;
-  margin-left: 100px;
-  margin: auto;
   position: relative;
   background-color: #fff;
   height: 70px;
-  max-width: 600px;
-  vertical-align: center;
-  border-radius: 0 25% 0 25%;
 }
 
-.main{
-    position: absolute;
-    top: 0;
-    left: 0;
+.main-input {
     z-index: 11;
-    background: transparent;
-
 }
+
 .autocomplete{
-    position: absolute;
     top: 0;
     left: 0;
     background: transparent;
@@ -33,6 +29,11 @@ body {
 }
 
 input {
+  top: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: transparent;
+  position: absolute;
   color: salmon;
   box-shadow: none;
   outline: none;
@@ -41,7 +42,25 @@ input {
   width: 100%;
   max-width: 570px;
   text-align: left;
-  margin-left: 15px;
-  margin-right: 15px;
   height: 70px;
+}
+
+.select-box {
+  background-color: pink;
+  position: relative;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  height: 20px;
+  list-style: none;
+  border-bottom: 2px dotted #fff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-left: 15px;
+  color: #fff;
 }
