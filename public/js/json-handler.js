@@ -1,8 +1,8 @@
-function getTopResults (search, data) {
+function getTopResults (search, data, caps) {
   var results = !!search ? data.filter(function (val) {
     return (val.toLowerCase().indexOf(search.toLowerCase()) === 0 && val.toLocaleLowerCase() !== search.toLocaleLowerCase());
   }) : [];
-  return results.slice(0, 5);
+  return results.slice(0, 5).map(str => caps ? str.toUpperCase() : str);
 }
 
 function updateHiddenInput (autoString) {
@@ -20,10 +20,10 @@ function showSelectBox (arr) {
   else searchResults.style.display = 'none';
 }
 
-function receive (data) {
+function receive (data, caps) {
   var totalUserInput = inp.value.split(' '); // gets content of input box
   var searchWord = totalUserInput.pop(); // gets fin al chunk of input
-  var topResults = getTopResults(searchWord, data);
+  var topResults = getTopResults(searchWord, data, caps);
   var firstResult = (topResults[0] || searchWord); // gets top match
   var charsToAdd = firstResult.substr(searchWord.length) || '';
   updateHiddenInput(inp.value + charsToAdd);
@@ -35,7 +35,6 @@ function usersSelection (value) {
   var totalUserInput = inp.value.split(' '); // gets content of input box
   var searchWord = totalUserInput.pop(); // gets fin al chunk of input
   updateHiddenInput(inp.value + value.substring(searchWord.length) || '');
-  console.log(value);
 }
 
 // Needed - build list function that takes search word, data, searchResults container and builds list, call at the end of receive function.
