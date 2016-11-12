@@ -20,6 +20,57 @@ inp.addEventListener('keyup', function (event) {
   keyRoutes(inp.value, event.key);
 });
 
+/* Takes container(ul) and classname(selected), adds classname on hover for each,
+    when hovered out of container the first element holds the classname.
+    On hover/click, usersSelection is fired with users selection
+    Needs to be called inside json-handler after generating list elements */
+function hoverAndClickEventHandlers (container, className) {
+  if (!container.children) return;
+
+  function removeClasses () {
+    [].forEach.call(container.children, function (child) {
+      child.classList.remove(className);
+    });
+  }
+  container.addEventListener('mouseover', function (event) {
+    removeClasses();
+    event.target.classList.add(className);
+    usersSelection(event.target.textContent);
+  });
+  container.addEventListener('mouseleave', function () {
+    removeClasses();
+    container.children[0].classList.add(className);
+    usersSelection(container.children[0].textContent);
+  });
+  container.addEventListener('click', function (event) {
+    usersSelection(event.target.textContent);
+    onEnter(inp.value);
+  });
+}
+
+// Remove this function call after json-handler functions built
+hoverAndClickEventHandlers(document.querySelector('ul'), 'selected');
+
+// Allows arrow keys to cycle through classes dpeneding on direction
+function shiftClass (container, className, direction) {
+  if (!container.children) return;
+
+  var initial = document.querySelector('.' + className);
+
+  var previous = initial.previousElementSibling;
+  var next = initial.nextElementSibling;
+
+  if (direction === 'up' && previous) {
+    initial.classList.remove(className);
+    previous.classList.add(className);
+    usersSelection(previous.textContent);
+  } else if (direction === 'down' && next) {
+    initial.classList.remove(className);
+    next.classList.add(className);
+    usersSelection(next.textContent);
+  }
+}
+
 // // HELPER FUNCTIONS
 // Clear functions
 function clearAll () {
@@ -50,7 +101,6 @@ function waterfall (arg, tasks, cb) {
 function requestJSON (url, cb) {
   var xhr = new XMLHttpRequest();
   xhr.addEventListener('load', function (response) {
-    // console.log(response.currentTarget.response)
     cb(null, response.currentTarget.response);
   });
   xhr.addEventListener('error', function (err) {
@@ -96,13 +146,7 @@ function onEnter (input) {
   } else {
     inp.value = '';
   }
-}
-
-function onSelect (value) {
-  var text = inp.value.split(' ');
-  text.pop();
-  text.push(value);
-  inp.value = text.join(' ');
+  clearSuggestionsContainer();
 }
 
 function onSpace () {
@@ -117,9 +161,16 @@ function onOddKey () {
   clearSuggestionsContainer();
 }
 
+function onUpKey () {
+  shiftClass(searchResults, 'selected', 'up');
+}
+
+function onDownKey () {
+  shiftClass(searchResults, 'selected', 'down');
+}
+
 function clearSuggestionsContainer () {
-  // Assumes search-results container contains ul element
-  // searchResults.children[0].innerHTML = '';
+  searchResults.innerHTML = '';
 }
 
 function onLetter (input) {
@@ -128,7 +179,7 @@ function onLetter (input) {
     var newFilteredArray = filterResults(globalData.results, lastChunk(input));
     if (newFilteredArray.length) {
       // to receive function in json-handler.js
-      receive(newFilteredArray);
+      receive(newFilteredArray, null);
     } else {
       // If no results, then send request to server for data
       var url = buildUrl('/dict', 'en', lastChunk(input));
@@ -137,7 +188,7 @@ function onLetter (input) {
           throw err;
         } else {
           handleJSON(json);
-          receive(globalData.results);
+          receive(globalData.results, null);
         }
       });
     }
@@ -154,6 +205,10 @@ function keyRoutes (inp, char) {
     onSpace(inp);
   } else if (char === 'Backspace') {
     onBackSpace(inp);
+  } else if (char === 'ArrowUp') {
+    onUpKey();
+  } else if (char === 'ArrowDown') {
+    onDownKey();
   } else if (lastChunk(inp) !== undefined) {
     onLetter(inp);
   } else {
