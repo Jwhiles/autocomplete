@@ -58,6 +58,7 @@ input {
     background-color: #fff;
     color: darkgrey;
     list-style: none;
+    display: none;
 }
 
 .suggestion {
