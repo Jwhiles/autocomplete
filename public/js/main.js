@@ -4,7 +4,7 @@ var globalData = {};
 // Holds latestChunk word chunk, e.g. for 'the cat in the ha', latestChunk = 'ha'
 var latestChunk;
 
-var inp = document.querySelector('.main');
+var inp = document.querySelector('.main-input');
 var disabledInp = document.querySelector('.jsauto');
 var searchResults = document.querySelector('.search-results');
 
@@ -170,7 +170,7 @@ function onDownKey () {
 }
 
 function clearSuggestionsContainer () {
-  searchResults.innerHTML = '';
+  searchResults.style.display = 'none';
 }
 
 function onLetter (input) {
