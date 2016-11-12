@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>!! Backend Party</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href="./css/main.css">
-  </head>
-  <body>
-    <div class="main-container">
+<head>
+  <meta charset="utf-8">
+  <title>Backend Party</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' href="./css/main.css">
+</head>
+<body>
+  <div class="main-container">
     <div class='search-contain'>
-        <input class="main-input" type="text" />
-        <input class="autocomplete jsauto" type="text" disabled="disabled" />
-      </div>
-        <div class="select-box">
-          <ul>
-            <li>Suggestion 1</li>
-          </ul>
-        </div>
+      <input class="main-input" type="text" />
+      <input class="autocomplete jsauto" type="text" disabled="disabled" />
     </div>
+    <div class='search-results'>
+      <ul>
+        <li class="suggestion selected">An</li>
+        <li class="suggestion">Ana</li>
+        <li class="suggestion">Anab</li>
+        <li class="suggestion">Anac</li>
+        <li class="suggestion">Anc</li>
+      </ul>
+    </div>
+  </div>
 
-
-    <!-- <p class='test'></p> -->
-    <script src='js/main.js'></script>
-    <script src='js/json-handler.js'></script>
-  </body>
+  <!-- <p class='test'></p> -->
+  <script src='js/main.js'></script>
+  <script src='js/json-handler.js'></script>
+</body>
 </html>

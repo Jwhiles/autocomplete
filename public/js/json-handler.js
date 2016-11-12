@@ -5,15 +5,14 @@ function firstWord (search, data) {
   if (results.length > 1 && results[0] === search) {
     return results[1];
   }
-  console.log(results[0]);
+  // console.log(results[0]);
   return results[0];
 }
 
 function getTopResults (search, data) {
-  var results = !!search ? data.filter(function (val) {
+  var results = search ? data.filter(function (val) {
     return (val.toLowerCase().indexOf(search.toLowerCase()) === 0 && val.toLocaleLowerCase() !== search.toLocaleLowerCase());
   }) : [];
-  console.log(results);
   return results.slice(0, 5);
 }
 
@@ -36,3 +35,16 @@ function receive (data) {
   // });
   updateHiddenInput(inp.value + charsToAdd);
 }
+
+// Called when user hovers/clicks on result
+function usersSelection (value) {
+  var totalUserInput = inp.value.split(' '); // gets content of input box
+  var searchWord = totalUserInput.pop(); // gets fin al chunk of input
+  updateHiddenInput(inp.value + value.substring(searchWord.length) || '');
+  console.log(value);
+}
+
+// Needed - build list function that takes search word, data, searchResults container and builds list, call at the end of receive function.
+// Build list function should first clear html of searchResults
+// It should give first list item class of selected
+// It needs to call hoverAndClickEventHandlers(); with ul element and .selected class name
