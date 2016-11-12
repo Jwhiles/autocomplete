@@ -17,7 +17,8 @@ inp.addEventListener('keyup', function (event) {
   } else if (!latestChunk) {
     clearDisabledInp();
   }
-  keyRoutes(inp.value, event.key);
+  var caps = isCapslock(event);
+  keyRoutes(inp.value, event.key, caps);
 });
 
 /* Takes container(ul) and classname(selected), adds classname on hover for each,
@@ -173,13 +174,13 @@ function clearSuggestionsContainer () {
   searchResults.style.display = 'none';
 }
 
-function onLetter (input) {
+function onLetter (input, caps) {
   if (lastChunk(input) !== undefined) {
     // If users stored results contains results from their new word chunk, then send new filtered array...
     var newFilteredArray = filterResults(globalData.results, lastChunk(input));
     if (newFilteredArray.length) {
       // to receive function in json-handler.js
-      receive(newFilteredArray, null);
+      receive(newFilteredArray, caps);
     } else {
       // If no results, then send request to server for data
       var url = buildUrl('/dict', 'en', lastChunk(input));
@@ -188,7 +189,7 @@ function onLetter (input) {
           throw err;
         } else {
           handleJSON(json);
-          receive(globalData.results, null);
+          receive(globalData.results, caps);
         }
       });
     }
@@ -198,7 +199,7 @@ function onLetter (input) {
 }
 
 // handles routes
-function keyRoutes (inp, char) {
+function keyRoutes (inp, char, caps) {
   if (char === 'Enter') {
     onEnter(inp);
   } else if (char === ' ') {
@@ -210,10 +211,24 @@ function keyRoutes (inp, char) {
   } else if (char === 'ArrowDown') {
     onDownKey();
   } else if (lastChunk(inp) !== undefined) {
-    onLetter(inp);
+    onLetter(inp, caps);
   } else {
     onOddKey(inp);
   }
+}
+
+function isCapslock (e) {
+  if (e.key === 'Shift') return;
+  var key = e.key;
+  var shifton = false;
+  if (e.shiftKey) {
+    shifton = e.shiftKey;
+  }
+    // caps on
+  if (key.toUpperCase() === key && !shifton) {
+    return true;
+  }
+  return false;
 }
 
 // handleJSON
