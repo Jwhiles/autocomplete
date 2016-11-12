@@ -170,7 +170,7 @@ function onDownKey () {
 }
 
 function clearSuggestionsContainer () {
-  searchResults.innerHTML = '';
+  searchResults.style.display = 'none';
 }
 
 function onLetter (input) {

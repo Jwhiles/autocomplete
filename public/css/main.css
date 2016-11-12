@@ -17,10 +17,6 @@ body {
   max-width: 600px;
 }
 
-
-
-
-
 /* Input Container */
 /*Typing input*/
 .main-input {
@@ -58,7 +54,7 @@ input {
 .search-results {
     width: 100%;
     max-width: 600px;
-    margin: 40px auto;
+    margin: 25px auto;
     background-color: #fff;
     color: darkgrey;
     list-style: none;
