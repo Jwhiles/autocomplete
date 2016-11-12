@@ -49,7 +49,7 @@ function hoverAndClickEventHandlers (container, className) {
 }
 
 // Remove this function call after json-handler functions built
-hoverAndClickEventHandlers(document.querySelector('ul'), 'selected');
+// hoverAndClickEventHandlers(document.querySelector('ul'), 'selected');
 
 // Allows arrow keys to cycle through classes dpeneding on direction
 function shiftClass (container, className, direction) {

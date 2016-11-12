@@ -34,6 +34,8 @@ function receive (data) {
   //   if (oldWords[indx]) { newWords[indx] = oldWords[indx]; }
   // });
   updateHiddenInput(inp.value + charsToAdd);
+  // Needed - build function that clears and generates list items from top results
+  buildListItems(searchWord, data, searchResults);
 }
 
 // Called when user hovers/clicks on result
@@ -41,10 +43,24 @@ function usersSelection (value) {
   var totalUserInput = inp.value.split(' '); // gets content of input box
   var searchWord = totalUserInput.pop(); // gets fin al chunk of input
   updateHiddenInput(inp.value + value.substring(searchWord.length) || '');
-  console.log(value);
 }
 
-// Needed - build list function that takes search word, data, searchResults container and builds list, call at the end of receive function.
-// Build list function should first clear html of searchResults
-// It should give first list item class of selected
-// It needs to call hoverAndClickEventHandlers(); with ul element and .selected class name
+function buildListItems (search, data, container) {
+  data = getTopResults(search, data);
+  // reset
+  container.innerHTML = '';
+
+  var ul = document.createElement('ul');
+  var htmlStr = '';
+
+  data.forEach(function (item, index) {
+    if (!index) {
+      htmlStr += '<li class="suggestion selected">' + item + '</li>';
+    } else {
+      htmlStr += '<li class="suggestion">' + item + '</li>';
+    }
+  });
+  ul.innerHTML = htmlStr;
+  container.appendChild(ul);
+  hoverAndClickEventHandlers(ul, 'selected');
+}
