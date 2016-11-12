@@ -149,15 +149,15 @@ function onLetter (input) {
 // handles routes
 function keyRoutes (inp, char) {
   if (char === 'Enter') {
-    onEnter(inp);
+    // onEnter(inp);
   } else if (char === ' ') {
-    onSpace(inp);
+    // onSpace(inp);
   } else if (char === 'Backspace') {
-    onBackSpace(inp);
+    // onBackSpace(inp);
   } else if (lastChunk(inp) !== undefined) {
-    onLetter(inp);
+    // onLetter(inp);
   } else {
-    onOddKey(inp);
+    // onOddKey(inp);
   }
 }
 
