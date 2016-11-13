@@ -4,20 +4,31 @@ var search = module.exports = {};
 
 var words = [];
 var languages = {
-  'en': 'english.txt',
-  'fr': 'french.txt',
-  'it': 'italian.txt',
-  'du': 'dutch.txt',
-  'nw': 'norwegian.txt',
-  'sp': 'spanish.txt',
-  'da': 'danish.txt'
+  'en': 'English_British.dic',
+  'fr': 'French.dic',
+  'ge': 'German.dic',
+  'gr': 'Greek.dic',
+  'hu': 'Hungarian.dic',
+  'it': 'Italian.dic',
+  'du': 'Dutch.dic',
+  'no': 'Norwegian.dic',
+  'sp': 'Spanish.dic',
+  'da': 'Danish.dic'
 
 };
 
 search.import = function (language, cb) {
   if (languages[language]) {
+    console.log(language);
     fs.readFile(path.join(__dirname, 'dict', languages[language]), 'utf8', function (err, data) {
       words = data.split('\n');
+      words = words.map(function (word) {
+        return word.split('/')[0];
+      });
+      words = words.map(function (word) {
+        return word.split('\\')[0];
+      });
+    //  console.log(words);
       cb(err, words);
     });
   } else {
@@ -51,6 +62,7 @@ search.find = function (searchTerm, language, cb) {
       }
     }
     var responseObj = {};
+    console.log(results);
     responseObj.results = data.length >= 50 ? results.slice(0, 50) : results;
     responseObj.matchCount = results.length;
     cb(null, JSON.stringify(responseObj));

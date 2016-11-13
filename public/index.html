@@ -2,12 +2,37 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
   <title>Backend Party</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel='stylesheet' href="./css/main.css">
 </head>
 <body>
   <div class="main-container">
+    <div class = "language-container">
+      <p>Choose a language</p>
+      <div class="dropdown">
+        <button onclick='myFunction() 'class='drop-down-btn'> Choose a language </button>
+        <div class="options" id="language-options">
+          <button onclick='myLanguage("English")'>English</button>
+          <button onclick='myLanguage("Danish")'>Danish</button>
+          <button onclick='myLanguage("Dutch")'>Dutch</button>
+          <button onclick='myLanguage("German")'>German</button>
+          <button onclick='myLanguage("Hungarian")'>Hungarian</button>
+          <button onclick='myLanguage("French")'>French</button>
+          <button onclick='myLanguage("Italian")'>Italian</button>
+          <button onclick='myLanguage("Norwegian")'>Norwegian</button>
+          <button onclick='myLanguage("Spanish")'>Spanish</button>
+
+        <!--  <a href="">Danish</a>
+          <a href="">Dutch</a>
+          <a href="">French</a>
+          <a href="">Italian</a>
+          <a href="">Norwegian</a>
+          <a href="">Spanish</a>-->
+        </div>
+      </div>
+    </div>
     <div class='search-contain'>
       <input class="main-input" type="text" autofocus="autofocus"/>
       <input class="autocomplete jsauto" type="text" disabled="disabled" />
@@ -26,5 +51,6 @@
   <!-- <p class='test'></p> -->
   <script src='js/main.js'></script>
   <script src='js/json-handler.js'></script>
+  <script src= 'js/language.js'></script>
 </body>
 </html>
