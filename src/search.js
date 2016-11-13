@@ -4,7 +4,7 @@ var search = module.exports = {};
 
 var words = [];
 var languages = {
-  'en': 'English.dic',
+  'en': 'English_British.dic',
   'fr': 'French.dic',
   'ge': 'German.dic',
   'gr': 'Greek.dic',
@@ -19,10 +19,14 @@ var languages = {
 
 search.import = function (language, cb) {
   if (languages[language]) {
+    console.log(language);
     fs.readFile(path.join(__dirname, 'dict', languages[language]), 'utf8', function (err, data) {
       words = data.split('\n');
       words = words.map(function (word) {
         return word.split('/')[0];
+      });
+      words = words.map(function (word) {
+        return word.split('\\')[0];
       });
     //  console.log(words);
       cb(err, words);
