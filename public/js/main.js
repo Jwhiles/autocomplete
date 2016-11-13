@@ -11,6 +11,7 @@ var language = 'en';
 
 function myLanguage (lang) {
   language = lang.toLowerCase().slice(0, 2);
+  return language;
 }
 // // DOM Manipulation
 
