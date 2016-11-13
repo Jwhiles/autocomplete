@@ -1,5 +1,13 @@
 # backend-badgers-autocomplete
 
+## How to check out our project
+
+- Clone this repo
+- Go into the directory and run ```nodemon server.js```
+- Navigate to http://localhost:8000/ in your browser
+
+Our app can also be viewed online on Heroku *insert URL here!*
+
 ## Objectives
 
 - Build an autocomplete test program.
