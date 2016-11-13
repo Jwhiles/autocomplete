@@ -126,9 +126,10 @@ function buildUrl (endpoint, lang, value) {
 function lastChunk (value) {
   if (!value) return undefined;
   value = value.toLowerCase().split(' ').pop();
-  if ((/^[a-z]([a-z-])*$/ig).test(value) === false) {
+  if ((/^[a-zÀ-ÿ]([a-z-À-ÿ])*$/ig).test(value) === false) {
     return undefined;
   }
+  console.log(value);
   return value;
 }
 // Filters array based on start of chunk
