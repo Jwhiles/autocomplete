@@ -26,7 +26,7 @@ search.import = function (language, cb) {
         return word.split('/')[0];
       });
       words = words.map(function (word) {
-        return word.split('\\')[0];
+        return word.split('\t')[0];
       });
     //  console.log(words);
       cb(err, words);
