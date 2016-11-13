@@ -36,6 +36,9 @@
 ### 5. On typing enter when no results are present:
 - Entire search field clears.
 
+## Dictionary source
+All dictionary files are from [tiltoBouzout](https://github.com/titoBouzout/Dictionaries).
+
 
 
 ## Stretch goals
