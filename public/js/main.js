@@ -7,7 +7,11 @@ var latestChunk;
 var inp = document.querySelector('.main-input');
 var disabledInp = document.querySelector('.jsauto');
 var searchResults = document.querySelector('.search-results');
+var language = 'en';
 
+function myLanguage (lang) {
+  language = lang.toLowerCase().slice(0, 2);
+}
 // // DOM Manipulation
 
 inp.addEventListener('keyup', function (event) {
@@ -183,7 +187,8 @@ function onLetter (input, caps) {
       receive(newFilteredArray, caps);
     } else {
       // If no results, then send request to server for data
-      var url = buildUrl('/dict', 'en', lastChunk(input));
+      // var url = buildUrl('/dict', 'en', lastChunk(input));
+      var url = buildUrl('/dict', language, lastChunk(input));
       waterfall(url, [requestJSON], function (err, json) {
         if (err) {
           throw err;

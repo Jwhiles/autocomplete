@@ -8,7 +8,7 @@ var languages = {
   'fr': 'french.txt',
   'it': 'italian.txt',
   'du': 'dutch.txt',
-  'nw': 'norwegian.txt',
+  'no': 'norwegian.txt',
   'sp': 'spanish.txt',
   'da': 'danish.txt'
 
