@@ -1,3 +1,5 @@
+var QUnit = QUnit || {};
+
 QUnit.test('test that buildUrl returns a url formatted string', function (t) {
   t.ok(typeof buildUrl('/dict', 'en', 'a') === 'string', 'should return a string');
   t.ok(buildUrl('/dict', 'en', 'a') === '/dict?lang=en&search=a', 'should return properly formatted url');
