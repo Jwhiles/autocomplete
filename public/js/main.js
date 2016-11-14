@@ -27,11 +27,22 @@ italianButton.addEventListener('click', function () { myLanguage('Italian'); });
 norwegianButton.addEventListener('click', function () { myLanguage('Norwegian'); });
 spanishButton.addEventListener('click', function () { myLanguage('Spanish'); });
 
+var greetings = {
+  'en': 'Hello',
+  'da': 'Hej',
+  'du': 'Hallo',
+  'ge': 'Hallo',
+  'hu': 'üdvözlet',
+  'it': 'Ciao',
+  'no': 'Hallo',
+  'sp': 'Hola'
+};
+
 function myLanguage (lang) {
   language = lang.toLowerCase().slice(0, 2);
   clearAll();
   clearSuggestionsContainer();
-  disabledInp.value = 'hello my love';
+  disabledInp.value = greetings[language];
   return language;
 }
 // // DOM Manipulation
