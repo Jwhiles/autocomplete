@@ -93,6 +93,7 @@ input {
     color: darkgrey;
     list-style: none;
     display: none;
+    cursor: pointer;
 }
 
 .suggestion {
