@@ -2,5 +2,6 @@ const http = require('http');
 const router = require('./router.js');
 const server = http.createServer(router);
 const port = (process.env.PORT || 8000);
-server.listen(port);
-console.log('Server running at port', port);
+server.listen(port, function () {
+  console.log('Server running at port', port);
+});

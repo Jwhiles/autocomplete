@@ -31,7 +31,7 @@ function myLanguage (lang) {
   language = lang.toLowerCase().slice(0, 2);
   clearAll();
   clearSuggestionsContainer();
-  disabledInp.value = 'hello my love'
+  disabledInp.value = 'hello my love';
   return language;
 }
 // // DOM Manipulation
@@ -140,13 +140,13 @@ function requestJSON (url, cb) {
 // Builds url to give to server
 function buildUrl (endpoint, lang, value) {
   if (arguments.length !== 3) {
-    return undefined;
+    return;
   }
   return endpoint + '?lang=' + lang + '&search=' + value;
 }
 // Takes string, checks last word/chunk, returns it (if it contains bad characters, returns undefined)
 function lastChunk (value) {
-  if (!value) return undefined;
+  if (!value) return;
   value = value.toLowerCase().split(' ').pop();
   if ((/^[a-zÀ-ÿ]([a-z-À-ÿ])*$/ig).test(value) === false) {
     return undefined;
