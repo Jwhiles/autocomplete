@@ -29,15 +29,15 @@ QUnit.test('test filterResults function', function (t) {
   var chunk = 'abl';
   t.deepEqual(filterResults(testRes, chunk), ['able', 'abler', 'abloom', 'ablution']);
 });
-/* QUnit.test('keyRoutes function', function (t) {
-  inp.value = 'apple';
-  t.ok(keyRoutes('e') === buildUrl('/dict', 'en', 'apple'), 'should return a valid url');
-  inp.value = 'I have an apple';
-  t.ok(keyRoutes('e') === buildUrl('/dict', 'en', 'apple'));
-  // test enter
-  // test space
-  // test shift key?
-}); */
+// QUnit.test('keyRoutes function', function (t) {
+//   inp.value = 'apple';
+//   t.ok(keyRoutes('e') === buildUrl('/dict', 'en', 'apple'), 'should return a valid url');
+//   inp.value = 'I have an apple';
+//   t.ok(keyRoutes('e') === buildUrl('/dict', 'en', 'apple'));
+//   // test enter
+//   // test space
+//   // test shift key?
+// });
 // test('test that keyRoutes() handles different key presses', function(t) {
 //   //enter
 //   t.ok(keyRoutes(13))
@@ -45,16 +45,6 @@ QUnit.test('test filterResults function', function (t) {
 //   //character
 //   //other
 //   t.ok()
-// })
-
-// QUnit.test('test that our firstword getter works', function (t) {
-//   var example = ['bing', 'binge', 'bingey', 'binghi', 'bingle', 'bingo', 'bingy'];
-//   var emptyExample = [];
-//   t.equal(firstWord('bing', example), 'binge', 'Gets the first matching result that is not exactly the same as search term');
-//   t.equal(firstWord('hahaha', example), undefined, 'Should return undefined term if there is no match');
-//   t.equal(firstWord('binge', example), 'bingey', "if the first word doesn't match, Gets the first matching result that is not the same as the search term");
-//   t.equal(firstWord('', example), undefined, 'Should return undefined if no search string is provided');
-//   t.equal(firstWord('bing', emptyExample), undefined, 'Should return undefined if results array is empty');
 // })
 
 QUnit.test('test that our top results function works', function (t) {
@@ -67,4 +57,15 @@ QUnit.test('test that our top results function works', function (t) {
   t.deepEqual(getTopResults('', example, false), [], 'returns an empty array if there is no search term');
   t.deepEqual(getTopResults('boo', emptyExample, false), [], 'returns an empty array if there the array is empty');
   t.deepEqual(getTopResults('bing', example, true), ['BINGE', 'BINGEY', 'BINGHI', 'BINGLE', 'BINGO'], 'returns capitalised results if caps is on');
+});
+
+// Test for updateHiddenInput
+QUnit.test('updateHiddenInput can change input value', function (t) {
+  var elt = document.createElement('input');
+  elt.value = 'ONE';
+  updateInputValue('TWO', elt);
+  t.ok(elt.value === 'TWO', 'can change input value from one to two');
+  var nonInput = document.createElement('button');
+  var result = updateInputValue('TWO', nonInput);
+  t.ok(typeof result == 'string', 'should return error message if input is not of type input');
 });

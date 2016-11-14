@@ -5,8 +5,9 @@ function getTopResults (search, data, caps) {
   return results.slice(0, 5).map(str => caps ? str.toUpperCase() : str);
 }
 
-function updateHiddenInput (autoString) {
-  document.getElementsByClassName('jsauto')[0].value = autoString;
+function updateInputValue (autoString, elt) {
+  if (elt.tagName !== 'INPUT') return 'element must be of type input';
+  elt.value = autoString;
 }
 
 function showSelectBox (arr) {
@@ -26,7 +27,7 @@ function receive (data, caps) {
   var topResults = getTopResults(searchWord, data, caps);
   var firstResult = (topResults[0] || searchWord); // gets top match
   var charsToAdd = firstResult.substr(searchWord.length) || '';
-  updateHiddenInput(inp.value + charsToAdd);
+  updateInputValue(inp.value + charsToAdd, document.querySelector('.jsauto'));
   showSelectBox(topResults);
 }
 
@@ -34,7 +35,7 @@ function receive (data, caps) {
 function usersSelection (value) {
   var totalUserInput = inp.value.split(' '); // gets content of input box
   var searchWord = totalUserInput.pop(); // gets fin al chunk of input
-  updateHiddenInput(inp.value + value.substring(searchWord.length) || '');
+  updateInputValue(inp.value + value.substring(searchWord.length) || '', document.querySelector('.jsauto'));
 }
 
 // Needed - build list function that takes search word, data, searchResults container and builds list, call at the end of receive function.
