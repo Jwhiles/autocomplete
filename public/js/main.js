@@ -161,19 +161,19 @@ function buildUrl (endpoint, lang, value) {
 // Takes string, checks last word/chunk, returns it (if it contains bad characters, returns undefined)
 function lastChunk (value) {
   if (!value) return;
-  value = value.toLowerCase().split(' ').pop();
-  if ((/^[a-zÀ-ÿ]([a-z-À-ÿ])*$/ig).test(value) === false) {
-    return undefined;
+  var lowerCaseValue = value.toLowerCase();
+  var splitWordsValue = lowerCaseValue.split(' ');
+  var lastwordOfValue = splitWordsValue.pop();
+  if ((/^[a-zÀ-ÿ]([a-z-À-ÿ])*$/ig).test(lastwordOfValue) === false) {
+    return;
   }
-  return value;
+  return lastwordOfValue;
 }
 // Filters array based on start of chunk
 function filterResults (array, chunk) {
-  if (!array) {
-    return [];
-  }
+  if (!array) return [];
+  var pattern = new RegExp('^' + chunk, 'i');
   array = array.filter(function (item) {
-    var pattern = new RegExp('^' + chunk, 'i');
     return (pattern.test(item) && item.length > 1);
   });
   return array;
