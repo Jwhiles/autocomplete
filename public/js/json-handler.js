@@ -14,6 +14,12 @@ function showSelectBox (arr) {
   var listItems = document.querySelectorAll('.suggestion');
   listItems.forEach(function (item, index) {
     item.innerHTML = (arr[index] || '');
+    if (!item.innerHTML) {
+      item.style.display = 'none';
+    } else {
+      item.style.display = 'block';
+    }
+
     item.classList.remove('selected');
   });
   listItems[0].classList.add('selected');
