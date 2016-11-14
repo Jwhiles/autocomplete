@@ -38,3 +38,6 @@ jspm_packages
 
 # ignore .DS_Store
 .DS_Store
+
+# config.env
+config.env
