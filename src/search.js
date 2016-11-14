@@ -23,11 +23,11 @@ search.import = function (language, cb) {
     fs.readFile(path.join(__dirname, 'dict', languages[language]), 'utf8', function (err, data) {
       words = data.split('\n');
       words = words.map(function (word) {
-        return word.split('/')[0];
+        word = word.split('/')[0];
+        word = word.split('\t')[0];
+        return word.split('\r')[0];
       });
-      words = words.map(function (word) {
-        return word.split('\t')[0];
-      });
+
     //  console.log(words);
       cb(err, words);
     });
