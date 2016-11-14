@@ -9,6 +9,24 @@ var disabledInp = document.querySelector('.jsauto');
 var searchResults = document.querySelector('.search-results');
 var language = 'en';
 
+var englishButton = document.getElementById('English');
+var danishButton = document.getElementById('Danish');
+var dutchButton = document.getElementById('Dutch');
+var germanButton = document.getElementById('German');
+var hungarianButton = document.getElementById('Hungarian');
+var italianButton = document.getElementById('Italian');
+var norwegianButton = document.getElementById('Norwegian');
+var spanishButton = document.getElementById('Spanish');
+
+englishButton.addEventListener('click', function () { myLanguage('English'); });
+danishButton.addEventListener('click', function () { myLanguage('Danish'); });
+dutchButton.addEventListener('click', function () { myLanguage('Dutch'); });
+germanButton.addEventListener('click', function () { myLanguage('German'); });
+hungarianButton.addEventListener('click', function () { myLanguage('Hungarian'); });
+italianButton.addEventListener('click', function () { myLanguage('Italian'); });
+norwegianButton.addEventListener('click', function () { myLanguage('Norwegian'); });
+spanishButton.addEventListener('click', function () { myLanguage('Spanish'); });
+
 function myLanguage (lang) {
   language = lang.toLowerCase().slice(0, 2);
   return language;
