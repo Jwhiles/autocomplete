@@ -11,6 +11,9 @@ var language = 'en';
 
 function myLanguage (lang) {
   language = lang.toLowerCase().slice(0, 2);
+  clearAll();
+  clearSuggestionsContainer();
+  disabledInp.value = 'hello my love'
   return language;
 }
 // // DOM Manipulation

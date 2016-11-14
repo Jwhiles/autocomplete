@@ -11,7 +11,7 @@
   },
   "scripts": {
     "main": "node src/server.js",
-    "start": "node src/server.js",
+    "start": "nodemon src/server.js",
     "test": "node tests/back-end-tests.js",
     "coverage": "istanbul cover tests/front-end-tests.js && istanbul cover tests/front-end-tests.js && ./node_modules/.bin/codecov -t 1999f578-04fb-47f4-a07d-c620110a9532",
     "codecov": "./node_modules/.bin/codecov -t 1999f578-04fb-47f4-a07d-c620110a9532",
