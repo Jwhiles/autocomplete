@@ -130,7 +130,6 @@ function lastChunk (value) {
   if ((/^[a-zÀ-ÿ]([a-z-À-ÿ])*$/ig).test(value) === false) {
     return undefined;
   }
-  console.log(value);
   return value;
 }
 // Filters array based on start of chunk
