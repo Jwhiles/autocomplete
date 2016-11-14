@@ -93,6 +93,7 @@ input {
     position: relative;
     padding: 5px 15px;
     list-style: none;
+    cursor: pointer;
 }
 
 /* Arrow */
