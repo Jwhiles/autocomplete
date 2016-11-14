@@ -7,6 +7,11 @@
 - Navigate to http://localhost:8000/ in your browser
 - Our app can also be viewed online on Heroku [here](https://damp-reef-40042.herokuapp.com/)
 
+## How to run our tests
+
+- Back-End Tests: run ```npm run test``` to initiate Tape tests.
+- Front-End Tests: Locate the tests.html file in the tests file and load in the browser to initiate QUnit Tests.
+
 ## Objectives
 
 - Build an autocomplete test program.
