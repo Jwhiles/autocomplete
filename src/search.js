@@ -45,7 +45,6 @@ search.find = function (searchTerm, language, cb) {
     }
     var pattern = new RegExp('^' + searchTerm, 'i');
     var results = [];
-    var firstIndex = false;
 
     for (var i = 0; i < data.length; i++) {
       // var currentMatch = false;

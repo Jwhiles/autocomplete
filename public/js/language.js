@@ -6,6 +6,7 @@ window.onclick = function (event) {
     var options = document.getElementsByClassName('options');
     for (var i = 0; i < options.length; i++) {
       var openOption = options[i];
+      console.log(openOption);
       if (openOption.classList.contains('show')) {
         openOption.classList.remove('show');
       }
