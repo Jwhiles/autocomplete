@@ -4,7 +4,7 @@ var search = module.exports = {};
 
 var words = [];
 var languages = {
-  'en': 'English_British.dic',
+  'en': 'english.txt',
   'fr': 'French.dic',
   'ge': 'German.dic',
   'gr': 'Greek.dic',
@@ -19,15 +19,14 @@ var languages = {
 
 search.import = function (language, cb) {
   if (languages[language]) {
-    console.log(language);
     fs.readFile(path.join(__dirname, 'dict', languages[language]), 'utf8', function (err, data) {
       words = data.split('\n');
-      words = words.map(function (word) {
-        word = word.split('/')[0];
-        word = word.split('\t')[0];
-        return word.split('\r')[0];
-      });
-
+      if (language !== 'en') {
+        words = words.map(function (word) {
+          word = word.split('/')[0].split('\t')[0];
+          return word;
+        });
+      }
     //  console.log(words);
       cb(err, words);
     });
@@ -49,21 +48,20 @@ search.find = function (searchTerm, language, cb) {
     var firstIndex = false;
 
     for (var i = 0; i < data.length; i++) {
-      var currentMatch = false;
+      // var currentMatch = false;
       if (pattern.test(data[i])) {
-        if (!firstIndex) {
-          firstIndex = i;
-        }
+        // if (!firstIndex) {
+        //   firstIndex = i;
+        // }
         results.push(data[i]);
-        currentMatch = true;
+        // currentMatch = true;
       }
-      if (currentMatch === false && results.length) {
+      if (results.length >= 50) {
         break;
       }
     }
     var responseObj = {};
-    console.log(results);
-    responseObj.results = data.length >= 50 ? results.slice(0, 50) : results;
+    responseObj.results = results;
     responseObj.matchCount = results.length;
     cb(null, JSON.stringify(responseObj));
   });
