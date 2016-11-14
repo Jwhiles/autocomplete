@@ -148,7 +148,11 @@ function filterResults (array, chunk) {
 
 function onEnter (input) {
   if (disabledInp.value !== input) {
-    inp.value = disabledInp.value;
+    // inp.value = disabledInp.value;
+    var newWord = document.querySelector('.selected').textContent;
+    var currentText = inp.value.split(' ');
+    currentText[currentText.length - 1] = newWord;
+    disabledInp.value = inp.value = currentText.join(' ');
   } else {
     inp.value = '';
   }
