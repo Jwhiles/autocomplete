@@ -3,7 +3,7 @@
 ## How to check out our project
 
 - Clone this repo
-- Go into the directory and run ```nodemon src/server.js```
+- Go into the directory and run ```npm run start``` (or ```nodemon src/server.js``` if you have nodemon installed)
 - Navigate to http://localhost:8000/ in your browser
 - Our app can also be viewed online on Heroku [here](https://damp-reef-40042.herokuapp.com/)
 
