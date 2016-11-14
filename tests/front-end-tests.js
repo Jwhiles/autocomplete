@@ -17,6 +17,7 @@ QUnit.test('test that lastChunk() returns a valid search value', function (t) {
 });
 
 QUnit.test('myLanguage function should return the first 2 chars of the language', function (t) {
+  let disabledInp = {}
   t.ok(myLanguage('English') === 'en');
   t.equal(myLanguage('Spanish'), 'sp');
   t.equal(myLanguage('Hungarian'), 'hu');

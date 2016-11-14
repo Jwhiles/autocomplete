@@ -17,6 +17,7 @@ var hungarianButton = document.getElementById('Hungarian');
 var italianButton = document.getElementById('Italian');
 var norwegianButton = document.getElementById('Norwegian');
 var spanishButton = document.getElementById('Spanish');
+var frenchButton = document.getElementById('French');
 
 englishButton.addEventListener('click', function () { myLanguage('English'); });
 danishButton.addEventListener('click', function () { myLanguage('Danish'); });
@@ -26,6 +27,7 @@ hungarianButton.addEventListener('click', function () { myLanguage('Hungarian');
 italianButton.addEventListener('click', function () { myLanguage('Italian'); });
 norwegianButton.addEventListener('click', function () { myLanguage('Norwegian'); });
 spanishButton.addEventListener('click', function () { myLanguage('Spanish'); });
+frenchButton.addEventListener('click', function () { myLanguage('French'); });
 
 var greetings = {
   'en': 'Hello',
@@ -35,7 +37,8 @@ var greetings = {
   'hu': 'üdvözlet',
   'it': 'Ciao',
   'no': 'Hallo',
-  'sp': 'Hola'
+  'sp': 'Hola',
+  'fr': 'Bonjour'
 };
 
 function myLanguage (lang) {
