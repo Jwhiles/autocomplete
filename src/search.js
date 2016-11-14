@@ -11,7 +11,7 @@ var languages = {
   'hu': 'Hungarian.dic',
   'it': 'Italian.dic',
   'du': 'Dutch.dic',
-  'no': 'Norwegian.dic',
+  'no': 'Norwegian (Bokmal).dic',
   'sp': 'Spanish.dic',
   'da': 'Danish.dic'
 
