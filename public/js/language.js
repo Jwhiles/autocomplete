@@ -4,8 +4,11 @@ function myFunction () {
 window.onclick = function (event) {
   if (!event.target.matches('.drop-down-btn')) {
     var options = document.getElementsByClassName('options');
-    if (options.classList.contains('show')) {
-      options.classList.remove('show');
+    for (var i = 0; i < options.length; i++) {
+      var openOption = options[i];
+      if (openOption.classList.contains('show')) {
+        openOption.classList.remove('show');
+      }
     }
   }
 };
