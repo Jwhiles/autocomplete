@@ -15,7 +15,7 @@ button {
   font-size: 10px;
 }
 h1 {
-  font-family: futura;
+  font-family: futura, sans-serif;
   text-align: center;
   font-size: 65px;
   margin-bottom: -35px;
