@@ -5,8 +5,7 @@
 - Clone this repo
 - Go into the directory and run ```nodemon src/server.js```
 - Navigate to http://localhost:8000/ in your browser
-
-Our app can also be viewed online on Heroku *insert URL here!*
+- Our app can also be viewed online on Heroku [here](https://damp-reef-40042.herokuapp.com/)
 
 ## Objectives
 
