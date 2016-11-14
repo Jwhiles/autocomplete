@@ -156,6 +156,7 @@ function onEnter (input) {
 }
 
 function onSpace () {
+  globalData = {};
   clearSuggestionsContainer();
 }
 
