@@ -38,7 +38,8 @@ h1 {
 }
 
 .main-container {
-  width: 600px;
+  max-width: 600px;
+  width: 80%;
   margin: auto;
 }
 
@@ -155,5 +156,9 @@ ul {
     height: 70px;
     width: 108px;
     font-size: 20px;
+  }
+
+  h1 {
+    margin-bottom: -10px;
   }
 }
