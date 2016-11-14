@@ -43,8 +43,3 @@ function usersSelection (value) {
   var searchWord = totalUserInput.pop(); // gets fin al chunk of input
   updateInputValue(inp.value + value.substring(searchWord.length) || '', document.querySelector('.jsauto'));
 }
-
-// Needed - build list function that takes search word, data, searchResults container and builds list, call at the end of receive function.
-// Build list function should first clear html of searchResults
-// It should give first list item class of selected
-// It needs to call hoverAndClickEventHandlers(); with ul element and .selected class name
