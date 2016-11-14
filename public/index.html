@@ -9,10 +9,25 @@
 </head>
 <body>
   <div class="main-container">
+
+    <div class='search-contain'>
+      <input class="main-input" type="text" autofocus="autofocus"/>
+      <input class="autocomplete jsauto" type="text" disabled="disabled" />
+      <button onclick='myFunction() 'class='drop-down-btn'>Language</button>
+    </div>
+    <div class='search-results'>
+      <ul>
+        <li class="suggestion selected">An</li>
+        <li class="suggestion">Ana</li>
+        <li class="suggestion">Anab</li>
+        <li class="suggestion">Anac</li>
+        <li class="suggestion">Anc</li>
+      </ul>
+    </div>
+
     <div class = "language-container">
-      <p>Choose a language</p>
       <div class="dropdown">
-        <button onclick='myFunction() 'class='drop-down-btn'> Choose a language </button>
+
         <div class="options" id="language-options">
           <button onclick='myLanguage("English")'>English</button>
           <button onclick='myLanguage("Danish")'>Danish</button>
@@ -33,19 +48,7 @@
         </div>
       </div>
     </div>
-    <div class='search-contain'>
-      <input class="main-input" type="text" autofocus="autofocus"/>
-      <input class="autocomplete jsauto" type="text" disabled="disabled" />
-    </div>
-    <div class='search-results'>
-      <ul>
-        <li class="suggestion selected">An</li>
-        <li class="suggestion">Ana</li>
-        <li class="suggestion">Anab</li>
-        <li class="suggestion">Anac</li>
-        <li class="suggestion">Anc</li>
-      </ul>
-    </div>
+
   </div>
 
   <!-- <p class='test'></p> -->

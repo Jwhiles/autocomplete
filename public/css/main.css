@@ -2,6 +2,33 @@ body {
   background-color: #eee;
 }
 
+button {
+  margin: auto;
+  margin-top: 5px;
+  font-family: futura;
+  height: 40px;
+  width: 70px;
+  border-radius: 5px;
+  background-color: pink;
+  transition: all 0.5s;
+  transition-timing-function: ease-out;
+  font-size: 10px;
+}
+.drop-down-btn {
+  display: inline-block;
+  margin-top: 20px;
+  right: -110px;
+  top: -20px;
+  position: absolute;
+  height: 70px;
+  width: 108px;
+  font-size: 20px;
+}
+
+.language-container {
+  text-align: left;
+}
+
 .main-container {
   width: 600px;
   margin-top: -10px;
@@ -110,5 +137,17 @@ ul {
 }
 
 .show {
+  position: fixed;
   display:block;
+}
+
+@media (max-width: 820px) {
+  .drop-down-btn {
+    left: 0px;
+    top: -100px;
+    position: relative;
+    height: 70px;
+    width: 108px;
+    font-size: 20px;
+  }
 }
