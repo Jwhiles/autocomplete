@@ -45,24 +45,22 @@ search.find = function (searchTerm, language, cb) {
     }
     var pattern = new RegExp('^' + searchTerm, 'i');
     var results = [];
-    var firstIndex = false;
+    var firstIndex = data.findIndex(x => pattern.test(x));
+    var lastIndex = data.length - (data.reverse().findIndex(x => pattern.test(x)));
+    var trimmedData = data.reverse().slice(firstIndex, lastIndex);
+    var totalMatches = 0;
 
-    for (var i = 0; i < data.length; i++) {
-      // var currentMatch = false;
-      if (pattern.test(data[i])) {
-        // if (!firstIndex) {
-        //   firstIndex = i;
-        // }
-        results.push(data[i]);
-        // currentMatch = true;
-      }
-      if (results.length >= 50) {
-        break;
+    for (var i = 0; i < trimmedData.length; i++) {
+      if (pattern.test(trimmedData[i]) && results.length < 50) {
+        results.push(trimmedData[i]);
+        totalMatches++;
+      } else if (pattern.test(trimmedData[i]) && results.length >= 50) {
+        totalMatches++;
       }
     }
     var responseObj = {};
     responseObj.results = results;
-    responseObj.matchCount = results.length;
+    responseObj.matchCount = totalMatches;
     cb(null, JSON.stringify(responseObj));
   });
 };
