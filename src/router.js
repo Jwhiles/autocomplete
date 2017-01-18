@@ -6,7 +6,8 @@ const routes = {
   '/': handler.home,
   '/dict': handler.dict,
   '.js': handler.files,
-  '.css': handler.files
+  '.css': handler.files,
+  '.txt': handler.files
 };
 
 module.exports = function (request, response) {
